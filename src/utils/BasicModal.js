@@ -4,8 +4,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
-import { Context } from "../Context";
 import { v4 as uuid } from 'uuid';
+import { useDispatch, useSelector } from 'react-redux';
+import { createHabbit } from '../actions/habbits';
 
 const style = {
   position: 'absolute',
@@ -20,18 +21,17 @@ const style = {
 };
 
 export default function BasicModal({showModal, setshowModal}) {
-  const [habbits, setHabbits] = React.useContext(Context);
+  const habbits = useSelector((state) => state.habbits);
   const handleClose = () => setshowModal(false);
   const habbitRef = React.useRef();
+  const dispatch = useDispatch();
   
   const saveButtonHandler = ()=>{
     const newHabbit = habbitRef.current.value
     
     if(newHabbit){
       const id = uuid();
-      setHabbits(
-        [{id, newHabbit, status: "none"}, ...habbits]
-      )
+      dispatch(createHabbit({name: newHabbit, tracks:[{date: new Date(), status: "done"}]}, habbits))
       setshowModal(false)
     }
   }

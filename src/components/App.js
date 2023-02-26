@@ -1,17 +1,30 @@
 import ButtonAppBar from "./Navbar"
-import { useState } from "react";
-import { Context } from "../Context.js";
+import { useEffect, useState } from "react";
 import Habbits from "./Habbits";
 import BasicModal from "../utils/BasicModal";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Tracker from "./Tracker";
+import { useDispatch } from "react-redux";
+import { getHabbits } from "../actions/habbits";
+
 function App() {
   const [showModal, setshowModal] = useState(false);
-  const [habbits, setHabbits] = useState([]);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getHabbits())
+  }, [])
+  
   return (
-    <Context.Provider value={[habbits, setHabbits]}>
+    <>
+      <BrowserRouter>
       <ButtonAppBar showModal={showModal} setshowModal={setshowModal}/>
-      <Habbits/>
+        <Routes>
+          <Route index element={<Habbits/>} />
+          <Route path="/habbits-tracker" element={<Tracker />} />
+        </Routes>
+      </BrowserRouter>
       <BasicModal showModal={showModal} setshowModal={setshowModal}/>
-    </Context.Provider>
+    </>
   );
 }
 

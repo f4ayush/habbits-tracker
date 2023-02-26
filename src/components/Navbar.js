@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 
 export default function ButtonAppBar({setshowModal}) {
   return (
@@ -24,6 +25,7 @@ export default function ButtonAppBar({setshowModal}) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Habbit
           </Typography>
+          <Link to="habbits-tracker" >detaled view</Link>
           <Button color="inherit" onClick={()=>setshowModal(true)}>Add Habbit</Button>
         </Toolbar>
       </AppBar>
