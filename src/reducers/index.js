@@ -1,4 +1,4 @@
 import { combineReducers } from 'redux';
 
-import habbits from './habbits';
-export const reducers = combineReducers({ habbits });
+import habits from './habits';
+export const reducers = combineReducers({ habits });

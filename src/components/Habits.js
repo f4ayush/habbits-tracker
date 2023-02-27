@@ -5,26 +5,29 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import { Box } from '@mui/system';
 import { useSelector } from 'react-redux';
-
+import ListItemIcon from '@mui/material/ListItemIcon';
+import CircleIcon from '@mui/icons-material/Circle';
 
 const style = {
     width: '100%',
-    maxWidth: 360,
     bgcolor: 'background.paper',
 };
 
-export default function Habbits() {
-    const habbits = useSelector((state) => state.habbits);
+export default function Habits() {
+    const habits = useSelector((state) => state.habits);
+    
+  
+    console.log(habits)
   return (
     <Box>
          <List sx={style} component="nav" aria-label="mailbox folders">
         {
-            habbits.map((habbit, i)=>(
+            habits.map((habit, i)=>(
                 
                 <ListItem button key={i}>
-
-                    <ListItemText primary={habbit.name} />
-                       
+                    <ListItemIcon> < CircleIcon /> </ListItemIcon>
+                    <ListItemText primary={habit.name} />
+                    
                 </ListItem>
                 
             ))

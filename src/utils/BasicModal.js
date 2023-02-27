@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import { v4 as uuid } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
-import { createHabbit } from '../actions/habbits';
+import { createHabit } from '../actions/habits';
 
 const style = {
   position: 'absolute',
@@ -21,18 +21,25 @@ const style = {
 };
 
 export default function BasicModal({showModal, setshowModal}) {
-  const habbits = useSelector((state) => state.habbits);
+  const habits = useSelector((state) => state.habits);
+  const [error, seterror] = React.useState({value:false, message:""})
+  const [habit, sethabit] = React.useState("")
+
   const handleClose = () => setshowModal(false);
-  const habbitRef = React.useRef();
+  const habitRef = React.useRef();
   const dispatch = useDispatch();
   
+  const handleChange = (e)=>{
+    sethabit(e.target.value);
+    seterror({value:false, message:""})
+  }
   const saveButtonHandler = ()=>{
-    const newHabbit = habbitRef.current.value
     
-    if(newHabbit){
-      const id = uuid();
-      dispatch(createHabbit({name: newHabbit, tracks:[{date: new Date(), status: "done"}]}, habbits))
+    if(habit){
+      dispatch(createHabit({name: habit, history:{}}, habits))
       setshowModal(false)
+    }else{
+      seterror({value:true, message:"This field is required."})
     }
   }
 
@@ -46,10 +53,10 @@ export default function BasicModal({showModal, setshowModal}) {
       >
         <Box sx={style}>
           <Typography sx={{ fontSize: 14, textAlign: "center"}} color="text.primary" gutterBottom variant='h5'>
-          Create Habbit
+          Create Habit
           </Typography>
           <div className='modal-inputs' style={{display:"flex", justifyContent: "space-between"}}>
-          <TextField id="outlined-basic" label="New Habbit" variant="outlined" sx={{marginBottom:"10px", maxWidth: "40%"}} inputRef={habbitRef}/>
+          <TextField id="outlined-basic" label="New Habit" variant="outlined" sx={{marginBottom:"10px", maxWidth: "40%"}} error={error.value} helperText={error.message} value={habit} onChange={handleChange}/>
          
           </div>
           

@@ -6,9 +6,24 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function ButtonAppBar({setshowModal}) {
+  const location = useLocation();
+  const [text, setText] = React.useState("")
+  const [path, setpath] = React.useState("")
+  React.useEffect(() => {
+    
+  if(location.pathname.includes("habits-tracker")){
+    setText("Breif View")
+    setpath("/")
+  }else{
+    setText("Detailed View")
+    setpath("/habits-tracker")
+  }
+    
+  }, [location])
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -23,10 +38,11 @@ export default function ButtonAppBar({setshowModal}) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Habbit
+            Habit
           </Typography>
-          <Link to="habbits-tracker" >detaled view</Link>
-          <Button color="inherit" onClick={()=>setshowModal(true)}>Add Habbit</Button>
+
+          <Link to={path} ><Button color="inherit" >{text}</Button></Link>
+          <Button color="inherit" onClick={()=>setshowModal(true)}>Add Habit</Button>
         </Toolbar>
       </AppBar>
     </Box>

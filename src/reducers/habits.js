@@ -7,7 +7,7 @@ export default (albums = [], action) => {
     case CREATE:
       return [action.payload, ...albums];
     case UPDATE_STATUS:
-      return albums.map((album) => (album === action.payload ? action.payload : album));
+      return [...action.payload];
     default:
       return albums;
   }
