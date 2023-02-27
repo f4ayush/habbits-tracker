@@ -37,6 +37,7 @@ export default function BasicModal({showModal, setshowModal}) {
     
     if(habit){
       dispatch(createHabit({name: habit, history:{}}, habits))
+      sethabit("")
       setshowModal(false)
     }else{
       seterror({value:true, message:"This field is required."})
