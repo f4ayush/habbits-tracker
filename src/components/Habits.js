@@ -27,6 +27,8 @@ export default function Habits() {
                 <ListItem button key={i}>
                     <ListItemIcon> < CircleIcon /> </ListItemIcon>
                     <ListItemText primary={habit.name} />
+                    {console.log(habit.history[new Date().toLocaleDateString()])}
+                    <ListItemText primary={habit.history[new Date().toLocaleDateString()] || "Not Done"} />
                     
                 </ListItem>
                 
